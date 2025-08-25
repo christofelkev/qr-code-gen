@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QR Code Generator (No Library)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app">
+        <header>
+            <h1>QR Code Generator — Tanpa Library</h1>
+            <p>Full HTML, CSS, & JS murni. Versi ini memanfaatkan API gambar (bukan library)</p>
+        </header>
+
+        <section class="card grid">
+            <div>
+                <div>
+                    <label for="text">Teks / URL</label>
+                    <textarea id="text" placeholder="Contoh: https://example.com atau kalimat bebas"></textarea>
+                    <div class="inline"><span id="charInfo" class="pill">0 karakter</span><span
+                            class="pill">UTF‑8</span></div>
+                </div>
+
+                <div style="height:8px"></div>
+
+                <div class="row-3">
+                    <div>
+                        <label for="size">Ukuran (px)</label>
+                        <input id="size" type="range" min="120" max="1000" step="1" value="320" />
+                        <div class="inline"><span>Output: <strong id="sizeOut">320 × 320</strong> px</span></div>
+                    </div>
+                    <div>
+                        <label for="ecc">Error Correction</label>
+                        <select id="ecc">
+                            <option value="L">L (Low) — kapasitas maksimal</option>
+                            <option value="M">M (Medium)</option>
+                            <option value="Q">Q (Quartile)</option>
+                            <option value="H">H (High) — paling tahan rusak</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="margin">Margin / Quiet Zone (px)</label>
+                        <input id="margin" type="number" min="0" max="40" value="0" />
+                    </div>
+                </div>
+
+                <div class="btns">
+                    <button id="btnGen">Generate</button>
+                    <button id="btnDownload" class="secondary">Download PNG</button>
+                    <button id="btnCopyUrl" class="ghost">Copy Image URL</button>
+                    <button id="btnClear" class="ghost">Clear</button>
+                </div>
+
+                <p class="hint">Tidak ada library eksternal. Gambar QR dihasilkan oleh layanan <em>QR Server</em> lalu
+                    ditampilkan sebagai &lt;img&gt;.
+                    Jika butuh versi <strong>offline murni</strong> (tanpa internet) </p>
+            </div>
+
+            <div class="preview-card">
+                <div class="img-wrap">
+                    <img id="qrImg" alt="QR preview" />
+                </div>
+                <div class="inline"><span>Status:</span> <span id="status" class="pill">Siap</span></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <details>
+                <summary><strong>Cara kerja singkat</strong> (klik untuk lihat)</summary>
+                <ol>
+                    <li>Ambil input teks, ukuran, margin, dan level error correction.</li>
+                    <li>Rakit URL ke endpoint gambar QR: <code>/v1/create-qr-code?size=...</code>.</li>
+                    <li>Setel <code>src</code> pada elemen <code>&lt;img&gt;</code> untuk menampilkan hasil.</li>
+                    <li>Untuk download, gambar dipindahkan ke <code>&lt;canvas&gt;</code> lalu diekspor sebagai PNG.
+                    </li>
+                </ol>
+            </details>
+        </section>
+
+        <footer class="inline" style="justify-content: space-between;">
+            <span class="pill">Made with HTML + CSS + JS</span>
+            <span class="pill">No Library</span>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
